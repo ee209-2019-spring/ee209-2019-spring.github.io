@@ -30,15 +30,15 @@ We will do <font color="#FF0000">five</font> programming
 assignments. The first four programming assignments take up 10% of
 your total grade. The fifth assignment takes up 15% of your total
 grade. Some assignments provide extra credit beyond your total grade.
+</p>
 
-</p><ul>
-<li> Assignment 1: <a href="https://ee209-2019-spring.github.io/assignment/wc209/">A Word Counting Program (10%)</a> (due: 21:00 on 9/19 (Wed))
-</li><li> Assignment 2: <a href="https://ee209-2019-spring.github.io/assignment/string/">String Manipulation (10%)</a> (due: 21:00 on 10/10 (Wed))
-</li><li> Assignment 3: <a href="https://ee209-2019-spring.github.io/assignment/cm/">Customer Management Table (10%)</a> (due: 21:00 on 11/05 (Mon) Extended)
-</li><li> Assignment 4: <a href="https://ee209-2019-spring.github.io/assignment/assembly/">Assembly Language Programming (10%)</a> (due: 21:00 on 11/21 (Wed))
-<!--li> Assignment 5: <a href="assignment/heapman/">Dynamic Memory Manager (10%)</a> (due: 21:00 on 12/2 (Sat)) -->
-</li><li> Assignment 5: <a href="https://ee209-2019-spring.github.io/assignment/unixshell/">A Unix Shell (15%)</a> (due: 21:00 on 12/19 (Wed), firm deadline, no extension)
-</li></ul>
+<!--<ul>
+<li> Assignment 1: <a href="https://ee209-2019-spring.github.io/assignment/wc209/">A Word Counting Program (10%)</a> (due: 21:00 on 9/19 (Wed))</li>
+<li> Assignment 2: <a href="https://ee209-2019-spring.github.io/assignment/string/">String Manipulation (10%)</a> (due: 21:00 on 10/10 (Wed))</li>
+<li> Assignment 3: <a href="https://ee209-2019-spring.github.io/assignment/cm/">Customer Management Table (10%)</a> (due: 21:00 on 11/05 (Mon) Extended)</li>
+<li> Assignment 4: <a href="https://ee209-2019-spring.github.io/assignment/assembly/">Assembly Language Programming (10%)</a> (due: 21:00 on 11/21 (Wed))</li>
+<li> Assignment 5: <a href="https://ee209-2019-spring.github.io/assignment/unixshell/">A Unix Shell (15%)</a> (due: 21:00 on 12/19 (Wed), firm deadline, no extension)</li>
+</ul>-->
 
 
 <h2> Tips on Downloading Files and Making a File Executable </h2>
