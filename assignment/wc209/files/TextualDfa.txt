@@ -1,0 +1,32 @@
+------------------------------------------
+Textual Representation of the Final DFA of
+Section 7.3 of Sedgewick and Wayne Book
+------------------------------------------
+
+
+none (the start state)
+   /:  slash
+   other:  none
+
+slash
+   /:  C++
+   *:  C
+   other:  none
+
+C++
+   end-of-line:  none
+   other:  C++
+
+C
+   *:  star
+   other:  C
+
+star
+   *:  star
+   /:  none
+   other:  C
+
+
+
+(Note that the DFA explicitly indicates which state
+is the start state.)
