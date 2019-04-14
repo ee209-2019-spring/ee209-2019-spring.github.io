@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- saved from url=(0046)https://ee209-2019-spring.github.io/syllabus.shtml -->
+<!-- saved from url=(0046)./syllabus.shtml -->
 <html xml:lang="en" lang="en" class="gr__ndsl_kaist_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EE 209 Syllabus</title>
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -12,12 +12,12 @@
 <h1>EE 209 Programming Structures for Electrical Engineering</h1>
 <div id="topnavbar">
 <ul class="topnavlist">
-<li><a href="https://ee209-2019-spring.github.io/index.html">EE 209 Home</a></li>
-<li><a href="https://ee209-2019-spring.github.io/syllabus.shtml">Syllabus</a></li>
-<li><a href="https://ee209-2019-spring.github.io/precepts.html">Precepts</a></li>
-<li><a href="https://ee209-2019-spring.github.io/assignments.shtml">Assignments</a></li>
-<li><a href="https://ee209-2019-spring.github.io/announcements.shtml">Announcements</a></li>
-<li><a href="https://ee209-2019-spring.github.io/policy.shtml">Policy</a></li>
+<li><a href="./index.html">EE 209 Home</a></li>
+<li><a href="./syllabus.shtml">Syllabus</a></li>
+<li><a href="./precepts.html">Precepts</a></li>
+<li><a href="./assignments.shtml">Assignments</a></li>
+<li><a href="./announcements.shtml">Announcements</a></li>
+<li><a href="./policy.shtml">Policy</a></li>
 </ul>
 </div>
 

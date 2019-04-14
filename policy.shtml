@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- saved from url=(0044)https://ee209-2019-spring.github.io/policy.shtml -->
+<!-- saved from url=(0044)./policy.shtml -->
 <html xml:lang="en" lang="en" class="gr__ndsl_kaist_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EE 209 Course Policy</title>
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -11,12 +11,12 @@
 <h1>EE 209 Programming Structures for Electrical Engineering</h1>
 <div id="topnavbar">
 <ul class="topnavlist">
-<li><a href="https://ee209-2019-spring.github.io/index.html">EE 209 Home</a></li>
-<li><a href="https://ee209-2019-spring.github.io/syllabus.shtml">Syllabus</a></li>
-<li><a href="https://ee209-2019-spring.github.io/precepts.html">Precepts</a></li>
-<li><a href="https://ee209-2019-spring.github.io/assignments.shtml">Assignments</a></li>
-<li><a href="https://ee209-2019-spring.github.io/announcements.shtml">Announcements</a></li>
-<li><a href="https://ee209-2019-spring.github.io/policy.shtml">Policy</a></li>
+<li><a href="./index.html">EE 209 Home</a></li>
+<li><a href="./syllabus.shtml">Syllabus</a></li>
+<li><a href="./precepts.html">Precepts</a></li>
+<li><a href="./assignments.shtml">Assignments</a></li>
+<li><a href="./announcements.shtml">Announcements</a></li>
+<li><a href="./policy.shtml">Policy</a></li>
 </ul>
 </div>
 
@@ -30,11 +30,11 @@ the materials presented in the lecture and precepts. Some of the
 content is not in the textbook.
 
 Students are expected to regularly check
-the <a href="https://ee209-2019-spring.github.io/index.html">course
+the <a href="./index.html">course
 webpage</a>
-for <a href="https://ee209-2019-spring.github.io/announcements.shtml">announcements</a>, <a href="https://ee209-2019-spring.github.io/syllabus.shtml">class
+for <a href="./announcements.shtml">announcements</a>, <a href="./syllabus.shtml">class
 schedule updates</a>, lecture
-notes, <a href="https://ee209-2019-spring.github.io/assignments.shtml">programming assignments</a> and
+notes, <a href="./assignments.shtml">programming assignments</a> and
 other related course materials.
 </p>
 
