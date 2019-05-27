@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0064)http://www.ndsl.kaist.edu/~kyoungsoo/ee209/assignment/unixshell/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="generator" content="HTML Tidy for Cygwin (vers 1st September 2004), see www.w3.org">
+<title>EE 209: Unix Shell Assignment</title>
+</head>
+<style>
+    .change {color:black}
+</style>
+<body>
+<center>
+<h1>KAIST<br>
+EE 209: Programming Structures for EE</h1>
+
+<h2>Assignment 5: A Unix Shell</h2>
+(Acknowledgment: This assignment is borrowed and slightly modified from Princeton COS 217) 
+
+</center>
+
+<hr>
+
+<h3>Purpose</h3>
+
+<p>The purpose of this assignment is to help you learn about Unix
+processes, low-level input/output, and signals. It will also give you
+ample opportunity to define software modules; in that sense the
+assignment is a capstone for the course.</p>
+
+<hr>
+
+<h3>Rules</h3>
+
+<p>Signal handling (as described below) is the "on your own" part of this assignment. That part is worth 8% of this assignment. </p>
+
+<p> You will get an extra 20% of the full score if you implement file redirection. See the extra credit section below.</p>
+
+<hr>
+
+<h3>Background</h3>
+
+<p>A Unix shell is a program that makes the facilities of the
+operating system available to interactive users. There are several
+popular Unix shells: <code>sh</code> (the Bourne
+shell), <code>csh</code> (the C shell), and <code>bash</code> (the
+Bourne Again shell) are a few.</p>
+
+<hr>
+
+<h3>Your Task</h3>
+
+<p>Your task in this assignment is to create a program
+named <code>ish</code>. Your program should be a minimal but
+realistic interactive
+Unix shell. A <a href="./shellsupplementary.html>">Supplementary
+Information</a> page lists detailed implementation requirements and
+recommendations.</p>
+
+<p> You can work on this assignment with a partner in your class. A
+team should be no more than 2 people in the same class. Submit just one
+copy to KLMS if you work in a team. </p>
+
+<p> If you choose to work alone (e.g., without a partner) on this
+assignment, you will receive extra credit as described below.
+</p>
+
+<hr>
+
+<h3>Building a Program</h3>
+
+<p>Use <code>-D_BSD_SOURCE</code> and <code>-D_GNU_SOURCE</code> options when building your program.</p>
+
+<hr>
+
+<h3>Initialization and Termination</h3>
+
+<p>When first started, your program should read and interpret lines
+from the file <code>.ishrc</code> in the user's HOME directory,
+provided that the file exists and is readable. Note that the file name
+is <code>.ishrc</code> (not <code>ishrc</code>), and that it resides
+in the user's <em>HOME</em> directory, not the <em>current</em>
+(alias <em>working</em>) directory.</p>
+
+<p>To facilitate your debugging and our testing, your program should
+print each line that it reads from <code>.ishrc</code> immediately
+after reading it. Your program should print a percent sign and a space
+(% ) before each such line.</p>
+
+<p>Your program should terminate when the user types Ctrl-d or issues
+the <code>exit</code> command. (See also the section below entitled
+"Signal Handling.")</p>
+
+<hr>
+
+<h3>Interactive Operation</h3>
+
+<p>After start-up processing, your program repeatedly should perform these actions:</p>
+
+<ul>
+<li>Print to the standard output stream a prompt consisting of a percent sign followed by a space.</li>
+
+<li>Read a line from the standard input stream.</li>
+
+<li>Lexically analyze the line to form an array of tokens.</li>
+
+<li>Syntactically analyze (i.e. parse) the token array to form a command.</li>
+
+<li>Execute the command.</li>
+</ul>
+
+<hr>
+
+<h3>Lexical Analysis</h3>
+
+<p>Informally, a <em>token</em> should be a word. More formally, a token should consist of a sequence of non-white-space characters that is separated from other tokens by white-space characters. There should be two exceptions:</p>
+
+<ul>
+<li>The special character '&#124;' should form separate token.</li>
+
+<li>Strings enclosed in double quotes (") should form part or all of a single token. Special characters inside of strings should not form separate tokens.</li>
+</ul>
+
+<p>Your program should assume that no line of the standard input stream contains more than 1023 characters; the terminating newline character is included in that count. In other words, your program should assume that a string composed from a line of input can fit in an array of characters of length 1024. If a line of the standard input stream is longer than 1023 characters, then your program need not handle it properly; but it should not corrupt memory.</p>
+
+<p>You may use <a href="./src/dfa.c"> dfa.c</a> as reference. This program uses the dynamic array and implements the example lexer from precept 11. Note, however, it does not have the full functionality required by ish.
+</p>
+<hr>
+
+<h3>Syntactic Analysis</h3>
+
+<p>A <em>command</em> should be a sequence of tokens, the first of which specifies the command name.</p>
+
+<p class='change'>The '&#124;' token should indicate that the immediate token after the '&#124;' is another command. Your program should redirect the standard output of the command on the left to the standard input of the command on the right. If there's no following token after '&#124;', your program should print out an appropriate error message. There can be multiple pipe operators in a single command.</p>
+<hr>
+
+<h3>Execution</h3>
+
+<p>Your program should interpret four shell built-in commands:</p>
+
+<table style="border-collapse: collapse;" border="5">
+<tbody>
+<tr>
+<td><code>setenv <em>var</em> [<em>value</em>]</code>
+</td>
+<td>If environment variable <code><em>var</em></code> does not exist, then your program should create it. Your program should set the value of <code><em>var</em></code> to <code><em>value</em></code>, or to the empty string if <code><em>value</em></code> is omitted. Note: Initially, your program inherits environment variables from its parent. Your program should be able to modify the value of an existing environment variable or create a new environment variable via the <code>setenv</code> command. Your program should be able to set the value of any environment variable; but the only environment variable that it explicitly uses is HOME.</td>
+</tr>
+
+<tr>
+<td><code>unsetenv <em>var</em></code>
+</td>
+<td>Your program should destroy the environment variable <code><em>var</em></code>.</td>
+</tr>
+
+<tr>
+<td><code>cd [<em>dir</em>]</code>
+</td>
+<td>Your program should change its working directory to <code><em>dir</em></code>, or to the HOME directory if <code><em>dir</em></code> is omitted.</td>
+</tr>
+
+<tr>
+<td><code>exit</code>
+</td>
+<td>Your program should exit with exit status 0.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note that those built-in commands should neither read from the standard input stream nor write to the standard output stream. Your program should print an error message if there is any piped commmand or file redirection with those built-in commands.</p>
+
+<p>If the command is not a built-in command, then your program should consider the command name to be the name of a file that contains code to be executed. Your program should fork a child process and pass the file name, along with its arguments, to the <code>execvp</code> system call. If the attempt to execute the file fails, then your program should print an error message indicating the reason for the failure.</p>
+
+<hr>
+
+<h3>Process Handling</h3>
+
+<p>All child processes forked by your program should run in the foreground. Your program need not support background processes.</p>
+<p>It is required to call wait for every child that has been created.</p>
+
+<hr>
+
+<h3>Signal Handling</h3>
+
+<p>[NOTE] Ctrl-d represents EOF, not a signal. Do NOT make a signal handler for Ctrl-d.</p>
+
+<p>When the user types Ctrl-c, Linux sends a SIGINT signal to the parent process and its children. Upon receiving a SIGINT signal:</p>
+
+<ul>
+<li>The parent process should ignore the SIGINT signal.</li>
+
+<li>A child process should not necessarily ignore the SIGINT signal. That is, unless the child process itself (beyond the control of parent process) has installed a handler for SIGINT signals, the child process should terminate.</li>
+</ul>
+
+<p>When the user types Ctrl-\, Linux sends a SIGQUIT signal to the parent process and its children. Upon receiving a SIGQUIT signal:</p>
+
+<ul>
+<li>The parent process should print the message "Type Ctrl-\ again within 5 seconds to exit." to the standard output stream. If and only if the user indeed types Ctrl-\ again within 5 seconds of wall-clock time, then the parent process should terminate.</li>
+
+<li>A child process should not necessarily ignore the SIGQUIT signal. That is, unless the child process itself (beyond the control of the parent process) has installed a handler for SIGQUIT signals, the child process should terminate.</li>
+</ul>
+
+<hr>
+
+<h3>Error Handling</h3>
+
+<p>Your program should handle an erroneous line gracefully by rejecting the line and writing a descriptive error message to the standard error stream. An error message written by your program should begin with "<code><em>programName</em>:</code> " where <code><em>programName</em></code> is <code>argv[0]</code>, that is, the name of your program's executable binary file. Note that <code>argv[0]</code> typically will be <code>ish</code>, but need not be so.</p>
+
+<p>The error messages written by your program need not be identical to those written by the given <code>sampleish</code> program. However, the error messages written by your program should be at least as descriptive as those written by <code>sampleish</code>.</p>
+
+<p><strong>Your program should handle all user errors. It should be impossible for the user's input to cause your program to crash.</strong>
+</p>
+
+<hr>
+
+<h3>Memory Management</h3>
+
+<p>Your program should contain no memory leaks. For every call of <code>malloc</code> or <code>calloc</code>, eventually there should be a corresponding call of <code>free</code>.</p>
+
+<hr>
+<h3>Extra Credit 1 (extra 20% of the full score of this assignment)</h3>
+<p>You are going to implement redirection of standard input and standard output as an extra credit.</p>
+<ul>
+	<li>The special character '&lt;' and '&gt;' should form separate token in lexical analysis.</li>
+	<li>The '&lt;' token should indicate that the following token is a name of a file. Your program should redirect the command's standard input to that file. It should be an error to redirect a command's standard input stream more than once. It should also be an error to redirect a command's standard input stream after a pipe token (See Redirection section in supplementary information page).</li>
+	<li>The '&gt;' token should indicate that the following token is a name of a file. Your program should redirect the command's standard output to that file. It should be an error to redirect a command's standard output stream more than once. It should also be an error to redirect a command's standard output stream before a pipe token (See Redirection section in supplementary information page).</li>
+
+        <li>If the standard input stream is redirected to a file that does not exist, then your program should print an appropriate error message.</li>
+	<li>If the standard output stream is redirected to a file that does not exist, then your program should create it. If the standard output stream is redirected to a file that already exists, then your program should destroy the file's contents and rewrite the file from scratch. Your program should set the permissions of the file to 0600.</li>
+</ul>
+
+<h3>Extra Credit 2 (extra 30% of your earned score including the extra credit1) </h3>
+
+<p> If you do this assignment on your own without a partner, you will receive extra credit which is worth 30% of (your basic score + extra credit1). Here is an example. If your score is 50 and you got extra credit 1, your earned score is 50 + 20 = 70.  If you worked alone, you will receive 30% x 70 = 21 additional points as extra credit 2. So, your total score will be 91. </p>
+
+<hr>
+
+<h3>Testing</h3>
+
+<p>Test your program by creating multiple files containing lines which your program should interpret, repeatedly copying each to the .ishrc file in your HOME directory, and restarting your program. The file <code><a href="./src/ishrc">.ishrc</a></code> contains a sequence of commands that can serve as a minimal test case. You should develop <em>many</em> more test files.</p>
+
+<p>Of course you also should test your program manually by typing commands at its prompt.</p>
+
+<hr>
+
+<h3>Logistics</h3>
+
+<p>Develop on lab machines. Use <code>emacs</code> to create source code. Use <code>make</code> to automate the build process. Use <code>gdb</code> to debug.</p>
+
+<p>An executable version of the assignment solution is available in <code><a href="./bin/sampleish>">sampleish</a></code>. Use it to resolve any issues concerning the desired functionality of your program. We also provide the <a href="./src/dynarray.h>">interface</a> and <a href="./src/dynarray.c>">implementation</a> of the <code>DynArray</code> ADT that we discussed in precepts. You are welcome to use that ADT in your program.</p>
+
+<p>Your <code>readme</code> file should contain:</p>
+
+<ul>
+<li> Your name and the name and the student ID of your partner.  If you worked alone, only your name is needed.</li>
+
+<li> Description of work division between you and your partner.
+
+<li>A description of whatever help (if any) you received from others while doing the assignment, and the names of any individuals with whom you collaborated, as prescribed by the course "Policies" web page.</li>
+
+<li>(Optionally) An indication of how much time you spent doing the assignment.</li>
+
+<li>(Optionally) Your assessment of the assignment.</li>
+
+<li>(Optionally) Any information that will help us to grade your work in the most favorable light. In particular you should describe all known bugs.</li>
+</ul>
+
+<hr>
+
+<h3> Submission </h3>
+
+<p>Use <a href="http://klms.kaist.ac.kr <view-source:http://klms.kaist.ac.kr/>">KAIST
+KLMS</a> to submit your assignments. Your submission should
+be </b>one gzipped tar file</a> whose name is </p>
+
+<p>YourStudentID_assign5.tar.gz</p>
+
+<p>Your submission need to include the following files:</p>
+<ul>
+
+<li>Your source code files. (If you used <code>DynArray</code> ADT from precepts, then submit the <code>dynarray.h</code> and <code>dynarray.c</code> files as well.)</li>
+
+<li>A <code>makefile</code>. The first dependency rule should build your entire program. The <code>makefile</code> should maintain object (.o) files to allow for partial builds, and encode the dependencies among the files that comprise your program. As always, use the <code>gcc209</code> command to build.</li>
+
+<li>A <code>readme</code> file.</li>
+<li> NEW: <a href="../EthicsOath.docx <view-source:https://www.ndsl.kaist.edu/ee209/assignment/EthicsOath.docx>">observance of ethics</a> document </li>
+</ul>
+
+<p>Please do not submit <code>emacs</code> backup files, that is, files that end with '~'.</p>
+
+<hr>
+
+<h3>Grading</h3>
+
+<p>We will grade your work on quality from the user's point of view and from the programmer's point of view. From the user's point of view, your program has quality if it behaves as it should. The correct behavior of your program is defined by the previous sections of this assignment specification and by the given <code>sampleish</code> program. From the programmer's point of view, your program has quality if it is well styled and thereby simple to maintain. See the specifications of previous assignments for guidelines concerning style. Proper function-level and file-level modularity will be a prominent part of your grade. To encourage good coding practices, we will deduct points if <code>gcc209</code> generates warning messages. Remember that the <a href="./shellsupplementary.html <view-source:https://www.ndsl.kaist.edu/ee209/assignment/unixshell/shellsupplementary.html>">Supplementary Information</a> page lists detailed implementation requirements and recommendations.</p>
+
+
+</body></html>
+

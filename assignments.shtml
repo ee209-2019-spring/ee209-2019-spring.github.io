@@ -37,7 +37,7 @@ grade. Some assignments provide extra credit beyond your total grade.
 <li> Assignment 2: <a href="./assignment/string/">String Manipulation (10%)</a> (due: 21:00 on 4/15 (Mon))</li>
 <li> Assignment 3: <a href="./assignment/cm/">Customer Management Table (10%)</a> (due: 21:00 on 5/11 (Sat))</li>
 <li> Assignment 4: <a href="./assignment/assembly/">Assembly Language Programming (10%)</a> (due: 21:00 on 5/25 (Sat))</li>
-<li> Assignment 5: <!--<a href="./assignment/unixshell/">A Unix Shell (15%)</a> (due: 21:00 on 12/19 (Wed), firm deadline, no extension)--></li>
+<li> Assignment 5: <a href="./assignment/shell/">A Unix Shell (15%)</a> (due: 21:00 on 6/19 (Wed), firm deadline, no extension)</li>
 </ul>
 
 
